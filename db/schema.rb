@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20140219023813) do
     t.datetime "created"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.string   "html_link"
+    t.text     "html_link"
     t.string   "event_id"
     t.string   "organizer"
     t.string   "creator"

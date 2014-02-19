@@ -1,24 +1,25 @@
-#barchart
-#linechart
+#weekly
+#daily
+#dayofmonth
 
 :javascript
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawCharts);
 
-  function barChart() {
+  function weekly() {
     var events_weekday = #{@events_weekday.to_a.to_json};
     var raw_data = [['Week Day', 'Minutes in Meetings']];
     events_weekday.forEach(function(d) {
       var row = d;
 
       switch(parseInt(d[0])) {
-        case 0: row[0] = 'Monday'; break;
-        case 1: row[0] = 'Tuesday'; break;
-        case 2: row[0] = 'Wednesday'; break;
-        case 3: row[0] = 'Thursday'; break;
-        case 4: row[0] = 'Friday'; break;
-        case 5: row[0] = 'Saturday'; break;
-        case 6: row[0] = 'Sunday'; break;
+        case 0: row[0] = 'Sunday'; break;
+        case 1: row[0] = 'Monday'; break;
+        case 2: row[0] = 'Tuesday'; break;
+        case 3: row[0] = 'Wednesday'; break;
+        case 4: row[0] = 'Thursday'; break;
+        case 5: row[0] = 'Friday'; break;
+        case 6: row[0] = 'Saturday'; break;
         default: row[0] = d[0]; break;
       };
 
@@ -31,11 +32,26 @@
       title: 'Meetings booked per Week Day'
     };
 
-    var chart = new google.visualization.ColumnChart(document.getElementById('barchart'));
+    var chart = new google.visualization.ColumnChart(document.getElementById('weekly'));
     chart.draw(data, options);
   }
 
-  function lineChart() {
+  function dayofmonth() {
+    var events_weekday = #{@events_dayofmonth.to_a.to_json};
+    var raw_data = [['Week Day', 'Minutes in Meetings']];
+    events_weekday.forEach(function(d) { raw_data.push(d); });
+
+    var data = google.visualization.arrayToDataTable(raw_data);
+
+    var options = {
+      title: 'Meetings booked on Day of Month'
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('dayofmonth'));
+    chart.draw(data, options);
+  }
+  
+  function daily() {
     var events = #{@events.to_a.to_json};
     var raw_data = [['Date', 'Minutes in Meetings']];
 
@@ -50,16 +66,22 @@
     var data = google.visualization.arrayToDataTable(raw_data);
 
     var options = {
-      title: 'Meetings booked per Week Day',
+      title: 'Meetings booked per Day',
       hAxis: {
         format: 'MMM d, y'
       }
     };
 
-    var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+    var formatter = new google.visualization.DateFormat({pattern: 'MMM d, y'});
+    formatter.format(data, 0);
+
+    var chart = new google.visualization.LineChart(document.getElementById('daily'));
     chart.draw(data, options);
   }
+
   function drawCharts() {
-    barChart();
-    lineChart();
+
+    weekly();
+    daily();
+    dayofmonth();
   }

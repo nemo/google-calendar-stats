@@ -31,11 +31,6 @@ private
     @google_client
   end
 
-
-  def google_calendar
-    calendar = google_api_client.discovered_api('calendar', 'v3')
-  end
-
   def current_user?
     current_user != nil
   end

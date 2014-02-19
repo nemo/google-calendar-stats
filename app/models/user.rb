@@ -30,7 +30,30 @@ class User < ActiveRecord::Base
   end
 
 
-  def update_calendar(events=[])
+  def update_calendar!
+    page_token = nil
+    result = google_api_client.execute(:api_method => google_calendar.events.list,
+                                :parameters => {'calendarId' => 'primary'},
+                                :authorization => google_authorization)
+
+    while true
+      events = result.data.items
+      events = events.select { |i| i.kind == "calendar#event" }
+
+      self.update_events events
+
+      if !(page_token = result.data.next_page_token)
+        break
+      end
+      result = google_api_client.execute(:api_method => google_calendar.events.list,
+                                :parameters => {'calendarId' => 'primary',
+                                                'pageToken' => page_token},
+                                :authorization => google_authorization)
+    end
+
+  end
+
+  def update_events(events=[])
     events.each do |data|
       event = Event.where(event_id: data["id"]).first || Event.new
 
@@ -38,6 +61,9 @@ class User < ActiveRecord::Base
 
       start_time = data["start"]["dateTime"].to_datetime
       end_time   = data["end"]["dateTime"].to_datetime
+
+      # skip if even is in the future
+      next if start_time > DateTime.now
 
       event.update_attributes!({ 
         start_time:   start_time,
@@ -53,4 +79,19 @@ class User < ActiveRecord::Base
       })
     end
   end
+
+private
+  def google_api_client
+    @google_client ||= Google::APIClient.new(
+      :application_name => 'Ruby Calendar Stats App',
+      :application_version => '1.0.0')
+
+    @google_client.authorization = self.google_authorization
+
+    @google_client
+  end
+  def google_calendar
+    calendar = google_api_client.discovered_api('calendar', 'v3')
+  end
+
 end
