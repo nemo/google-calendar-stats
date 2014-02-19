@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client_id: MyString
+  authoriziation_uri: MyString
+  client_secret: MyString
+  expires_in: 
+  refresh_token: MyString
+  token_credential_uri: MyString
+  issued_at: 
+  email: MyString
+  name: MyString
+
+two:
+  client_id: MyString
+  authoriziation_uri: MyString
+  client_secret: MyString
+  expires_in: 
+  refresh_token: MyString
+  token_credential_uri: MyString
+  issued_at: 
+  email: MyString
+  name: MyString

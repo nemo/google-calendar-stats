@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  created: 2014-02-18 21:38:13
+  start_time: 2014-02-18 21:38:13
+  end_time: 2014-02-18 21:38:13
+  html_link: MyString
+  event_id: MyString
+  organizer: MyString
+  creator: MyString
+  description: MyText
+  summary: MyString
+  status: MyString
+  duration: 1
+
+two:
+  created: 2014-02-18 21:38:13
+  start_time: 2014-02-18 21:38:13
+  end_time: 2014-02-18 21:38:13
+  html_link: MyString
+  event_id: MyString
+  organizer: MyString
+  creator: MyString
+  description: MyText
+  summary: MyString
+  status: MyString
+  duration: 1
