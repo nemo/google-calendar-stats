@@ -26,7 +26,8 @@
     var data = google.visualization.arrayToDataTable(raw_data);
 
     var options = {
-      title: 'Meetings booked per Week Day'
+      title: 'Meetings booked per Week Day',
+      height: 400
     };
 
     var chart = new google.visualization.ColumnChart(document.getElementById('weekly'));
@@ -41,7 +42,8 @@
     var data = google.visualization.arrayToDataTable(raw_data);
 
     var options = {
-      title: 'Meetings booked on Day of Month'
+      title: 'Meetings booked on Day of Month',
+      height: 400
     };
 
     var chart = new google.visualization.ColumnChart(document.getElementById('dayofmonth'));
@@ -64,6 +66,7 @@
 
     var options = {
       title: 'Meetings booked per Day',
+      height: 400,
       hAxis: {
         format: 'MMM d, y'
       }

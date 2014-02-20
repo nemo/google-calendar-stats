@@ -7,7 +7,7 @@ class AuthorizationController < ApplicationController
     user_credentials.code = params[:code] if params[:code]
     user_credentials.fetch_access_token!
 
-    user = User.where(client_id: user_credentials.client_id).first || User.new
+    user = User.where(access_token: user_credentials.access_token).first || User.new(access_token: user_credentials.access_token)
     user.update_credentials user_credentials
 
     session[:calendar_user_id] = user.id
