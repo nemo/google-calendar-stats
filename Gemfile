@@ -57,4 +57,7 @@ end
 #
 
 gem 'google-api-client', '>= 0.6'
-gem 'pry'
+
+# for Heroku
+gem 'rails_12factor', group: :production
+
