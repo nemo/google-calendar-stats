@@ -3,9 +3,6 @@
 #dayofmonth
 
 :javascript
-  google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawCharts);
-
   function weekly() {
     var events_weekday = #{@events_weekday.to_a.to_json};
     var raw_data = [['Week Day', 'Minutes in Meetings']];
@@ -80,8 +77,10 @@
   }
 
   function drawCharts() {
-
     weekly();
     daily();
     dayofmonth();
   }
+
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawCharts);

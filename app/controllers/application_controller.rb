@@ -9,11 +9,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :authorization_required!
 
-
-  def welcome
-    render 'TEST'
-  end
-
 private
   def google_api_client
     @google_client ||= Google::APIClient.new(

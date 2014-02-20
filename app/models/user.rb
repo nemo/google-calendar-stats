@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :events
+
   def google_authorization
     cached_credentials = self.attributes
     authorization = Signet::OAuth2::Client.new(cached_credentials)
@@ -55,7 +57,7 @@ class User < ActiveRecord::Base
 
   def update_events(events=[])
     events.each do |data|
-      event = Event.where(event_id: data["id"]).first || Event.new
+      event = Event.where(event_id: data["id"], user_id: self.id).first || Event.new(user_id: self.id)
 
       next unless (data["end"] and data["start"]["dateTime"])
 

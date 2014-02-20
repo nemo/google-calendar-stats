@@ -60,6 +60,8 @@ CalendarStats::Application.routes.draw do
 
   # Stats
   get '/stats' => 'stats#stats', as: :stats
+  get '/update_stats' => 'stats#update_stats', as: :update_stats
+  get '/welcome' => 'stats#welcome'
   
-  root "application#welcome"
+  root "stats#welcome"
 end
